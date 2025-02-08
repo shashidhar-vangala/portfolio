@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shashi Creations Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            background-color: #080808;
+        }
+        header {
+            background: linear-gradient(to right, #020024,#0101d7,#003be2, #6acbdf); /* Gradient colors */
+            
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        footer {
+            background: linear-gradient(to right,#222224,#4c4c4d);
+            width: 100%;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+        nav {
+            margin: 0.5rem 0;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s, border-bottom 0.3s;
+        }
+        nav a:hover {
+            color: #ffcc00;
+            border-bottom: 2px solid #ffcc00;
+        }
+        section {
+            padding: 2rem;
+            max-width: 900px;
+            margin: auto;
+        }
+        section h2 {
+            color: #0073e6;
+        }
+        
+        .project {
+            margin-bottom: 1.5rem;
+        }
+        .project h3 {
+            margin: 0.5rem 0;
+        }
+        #projects h3 {
+        color: #dc8274;
+        margin-top: 2rem;
+    }
+    .project {
+        margin-bottom: 1.5rem;
+        background-color: #1e1e1e; /* Slightly lighter than the background */
+        padding: 1rem;
+        border-radius: 10px;
+    }
+    .project h4 {
+        color: #fff;
+        margin: 0.5rem 0;
+    }
+    .project p {
+        color: #ddd;
+    }
+    #projects {
+        padding: 2rem;
+        max-width: 900px;
+        margin: auto;
+    }
+
+    #projects h2 {
+        
+        color: #0073e6;
+    }
+
+    .project-category {
+        margin: 1.5rem 0;
+        cursor: pointer;
+        transition: transform 0.3s;
+    }
+
+    .project-category:hover {
+        transform: scale(1.05);
+    }
+
+    .project-category h3 {
+        color: #ffcc00;
+        margin-bottom: 1rem;
+    }
+
+    /* Hide the project list by default */
+    .project-list {
+        display: none;
+        background-color: #1e1e1e;
+        padding: 1rem;
+        border-radius: 10px;
+    }
+
+    /* Show the project list on hover */
+    .project-category:hover .project-list {
+        display: block;
+    }
+
+    .project {
+        margin-bottom: 1rem;
+    }
+
+    .project h4 {
+        color: #fff;
+        margin: 0.5rem 0;
+    }
+
+    .project p {
+        color: #ddd;
+    }
+
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .skills span {
+            background: #0073e6;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+        .links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .links a {
+            display: flex;
+            align-items: center;
+            color: #0073e6;
+            text-decoration: none;
+        }
+        .links a img {
+            width: 20px;
+            height: 20px;
+            margin-right: 0.5rem;
+        }
+        #certifications {
+        text-align: center;
+        padding: 2rem;
+        background-color: #121212;
+        color: #fff;
+    }
+
+    #certifications h2 {
+        color: #0073e6;
+        margin-bottom: 2rem;
+    }
+
+    .certifications {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+    }
+
+    .certification {
+        position: relative;
+        width: 300px;
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .certification h3 {
+        
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        border-radius: 10px;
+        margin-bottom: 0.3rem;
+        padding: 0.3rem;
+    }
+
+    .certification img {
+        width: 160%;
+        border-radius: 10px;
+        opacity: 0;
+        transform: scale(0.8);
+        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        position: absolute;
+        top: 110%;
+        left: 50%;
+        transform: translate(-50%, 0%) scale(0.8);
+        z-index: 10;
+    }
+
+    .certification:hover img {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.6);
+    }
+
+    .full-size {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        width: 80%;
+        max-width: 800px;
+        z-index: 1000;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 1rem;
+        border-radius: 10px;
+    }
+    </style>
+    <script>
+        function toggleFullSize(element) {
+            let existingFullSize = document.querySelector('.full-size');
+            if (existingFullSize) {
+                existingFullSize.remove();
+                return;
+            }
+            let img = element.querySelector('img');
+            let fullSizeImg = document.createElement('div');
+            fullSizeImg.classList.add('full-size');
+            let newImg = document.createElement('img');
+            newImg.src = img.src;
+            newImg.style.width = '100%';
+            fullSizeImg.appendChild(newImg);
+            fullSizeImg.onclick = function() { this.remove(); };
+            document.body.appendChild(fullSizeImg);
+        }
+    </script>
+    
+    
+</head>
+<body>
+    <header>
+        <h1>SHASHIDHAR VANGALA </h1>
+        <nav>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#education">Education</a>
+            <a href="#certifications">Certifications</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    <section id="education">
+        <h2>Education</h2>
+        <p><strong>B.Tech, Guru Nanak Institutions Technical Campus, Hyderabad</strong> (2022 - 2025)</p>
+        <p>CGPA: 7.01 | Electronics and Communication Engineering (ECE)</p>
+
+        <p><strong>Diploma, Govt. Institute of Electronics, Secunderabad</strong> (2019 - 2022)</p>
+        <p>CGPA: 9.3 | Embedded Systems</p>
+
+        <p><strong>SSC, Ravindra Bharathi School</strong> (2019)</p>
+        <p>CGPA: 8.8</p>
+    </section>
+    <section id="skills">
+        <h2>Skills</h2>
+        <div class="skills">
+            <span>C Language</span>
+            <span>Python</span>
+            <span>Machine Learning</span>
+            <span>Computer Vision</span>
+            <span>Embedded C</span>
+            <span>PCB Design</span>
+        </div>
+        <h3 style="color: #0073e6;">Boards and Frameworks</h3>
+        <div class="skills">
+            <span>Arduino UNO</span>
+            <span>Raspberry Pi</span>
+            <span>ESP8266</span>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+    
+        <div class="project-category">
+            <h3>IoT Projects</h3>
+            <div class="project-list">
+                <div class="project">
+                    <h4>Automatic Plant Hydration using ESP8266</h4>
+                    <p>The system automates plant watering using an ESP8266 microcontroller and the ThingSpeak platform, ensuring efficient water usage and promoting plant health.</p>
+                </div>
+            </div>
+        </div>
+    
+        <div class="project-category">
+            <h3>Embedded Systems Projects</h3>
+            <div class="project-list">
+                <div class="project">
+                    <h4>Smart Parking System using Arduino Nano</h4>
+                    <p>This project helps drivers park efficiently with accurate space availability information using IR sensors and servo motors with an Arduino Nano microcontroller.</p>
+                </div>
+            </div>
+        </div>
+    
+        <div class="project-category">
+            <h3>Computer Vision Projects</h3>
+            <div class="project-list">
+                <div class="project">
+                    <h4>Face Recognition Attendance System</h4>
+                    <p>A Python-based project using OpenCV to detect and recognize faces for automated attendance marking.</p>
+                </div>
+            </div>
+        </div>
+        <section id="certifications">
+            <h2>Achievements & Certifications</h2>
+            <div class="certifications">
+                <div class="certification" onclick="toggleFullSize(this)">
+                    <h3>Responsive Web Development Certification</h3>
+                    <img src="web.jpg" alt="Responsive Web Development">
+                </div>
+                <div class="certification" onclick="toggleFullSize(this)">
+                    <h3>C Language Certification</h3>
+                    <img src="c-lang_sololearn.jpg" alt="C Language Certification">
+                </div>
+                <div class="certification" onclick="toggleFullSize(this)">
+                    <h3>Python Certification</h3>
+                    <img src="python.jpg" alt="Python Certification">
+                </div>
+                <div class="certification" onclick="toggleFullSize(this)">
+                    <h3>FPGA Development Certification</h3>
+                    <img src="fpga.jpg" alt="FPGA Development">
+                </div>
+                <div class="certification" onclick="toggleFullSize(this)">
+                    <h3>Drone (Edapt Online Certification)</h3>
+                    <img src="drone.jpg" alt="Drone Certification">
+                </div>
+                <div class="certification" onclick="toggleFullSize(this)">
+                    <h3>IoT (Edapt Online Certification)</h3>
+                    <img src="IOT.png" alt="IoT Certification">
+                </div>
+            </div>
+        </section>
+        
+
+    <footer>
+        <section id="contact">
+            <h2 style="color:#020000 ; font-weight: bold; text-align:center;">Contact :</h2>
+            <div class="links">
+                <a href="mailto:vshashidhar29@gmail.com">
+                    <img src="maillogo.jpg" alt="Email" style="width: 20px; height: 20px; margin-right: 0.5rem;"> G-mail </a>
+                <a href="tel:+918520042043">
+                    <img src="phonelogo.jpg" alt="Phone">call
+                </a>
+                <a href="https://www.linkedin.com/in/shashidhar-vangala/" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn">LinkedIn
+                </a>
+                <a href="https://github.com/shashidhar-vangala" target="_blank">
+                    <img src="github.png" alt="GitHub">GitHub
+                </a>
+                <a href="https://www.geeksforgeeks.org/user/vshashi1iaz/" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/43/GeeksforGeeks.svg" alt="GeeksForGeeks">GeeksForGeeks
+                </a>
+                <a href="https://www.hackerrank.com/Shashi_21" target="_blank">
+                    <img src="hackerrank1.png" alt="HackerRank">HackerRank
+                </a>
+                
+            </div>
+        </section>
+        <p>&copy; shashidhar-vangala</p>
+    </footer>
+</body>
+</html>
